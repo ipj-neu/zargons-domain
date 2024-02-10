@@ -1,10 +1,11 @@
 org: ipj31
 app: zargons-domain
 service: zargon-back
-frameworkVersion: '3'
+frameworkVersion: "3"
 
 provider:
   name: aws
+  region: us-east-2
   runtime: python3.9
 
 functions:
