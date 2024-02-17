@@ -1,0 +1,3 @@
+services:
+  testing:
+    path: testing
