@@ -6,3 +6,101 @@ frameworkVersion: "3"
 provider:
   name: aws
   region: us-east-2
+
+resources:
+  Resources:
+    # User Pool
+    ZargonUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+
+    # User Pool Client
+    ZargonUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        UserPoolId:
+          Ref: ZargonUserPool
+        ExplicitAuthFlows:
+          - ALLOW_ADMIN_USER_PASSWORD_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+          - ALLOW_USER_SRP_AUTH
+
+    # Identity Pool
+    ZargonIdentityPool:
+      Type: AWS::Cognito::IdentityPool
+      Properties:
+        AllowUnauthenticatedIdentities: false
+        CognitoIdentityProviders:
+          - ClientId:
+              Ref: ZargonUserPoolClient
+            ProviderName:
+              Fn::GetAtt:
+                - ZargonUserPool
+                - ProviderName
+
+    # Authenticated Role
+    AuthenticatedRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                Federated: "cognito-identity.amazonaws.com"
+              Action:
+                - "sts:AssumeRoleWithWebIdentity"
+              Condition:
+                StringEquals:
+                  cognito-identity.amazonaws.com:aud:
+                    Ref: ZargonUserPool
+                ForAnyValue:StringLike:
+                  cognito-identity.amazonaws.com:amr: anauthenticated
+          Policies:
+            - PolicyName: APIAccess
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  - Effect: "Allow"
+                    Action:
+                      - execute-api:Invoke
+                    Resource: "*"
+
+    # IAM role for unauthenticated users
+    UnauthenticatedRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                Federated: "cognito-identity.amazonaws.com"
+              Action:
+                - "sts:AssumeRoleWithWebIdentity"
+              Condition:
+                StringEquals:
+                  cognito-identity.amazonaws.com:aud:
+                    Ref: IdentityPool
+                ForAnyValue:StringLike:
+                  cognito-identity.amazonaws.com:amr: unauthenticated
+
+    # Connecting the IAM roles to the identity pool
+    IdentityPoolRoles:
+      Type: AWS::Cognito::IdentityPoolRoleAttachment
+      Properties:
+        IdentityPoolId:
+          Ref: ZargonIdentityPool
+        Roles:
+          authenticated:
+            Fn::GetAtt:
+              - AuthenticatedRole
+              - Arn
+          unauthenticated:
+            Fn::GetAtt:
+              - UnauthenticatedRole
+              - Arn
