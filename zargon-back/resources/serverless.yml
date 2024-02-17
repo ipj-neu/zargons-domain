@@ -6,3 +6,31 @@ frameworkVersion: "3"
 provider:
   name: aws
   region: us-east-2
+
+resources:
+  Resources:
+    SessionTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${opt:stage, self:provider.stage}-sessions
+        AttributeDefinitions:
+          - AttributeName: sessionId
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: sessionId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: UserIdIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
