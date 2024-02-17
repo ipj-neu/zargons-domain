@@ -1,0 +1,8 @@
+org: ipj31
+app: zargons-domain
+service: zargon-socket
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  region: us-east-2

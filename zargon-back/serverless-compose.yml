@@ -1,3 +1,12 @@
 services:
-  testing:
-    path: testing
+  auth:
+    path: auth
+
+  resources:
+    path: resources
+
+  zargon-socket:
+    path: zargon-socket
+
+  zargon-api:
+    path: zargon-api
