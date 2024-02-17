@@ -6,3 +6,24 @@ frameworkVersion: "3"
 provider:
   name: aws
   region: us-east-2
+  runtime: python3.11
+  httpApi:
+    cors: true
+
+package:
+  individually: true
+  exclude:
+    - "**/**"
+
+functions:
+  create-session:
+    handler: create_session.handler
+    package:
+      include:
+        - create_session.py
+    events:
+      - httpApi:
+          path: /session
+          method: post
+          authorizer:
+            type: aws_iam
