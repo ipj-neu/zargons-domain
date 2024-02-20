@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-zargonfront-dev-173014-authRole",
+      "UnauthRoleArn": "arn:aws:iam::956782569109:role/amplify-zargonfront-dev-173014-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::956782569109:role/amplify-zargonfront-dev-173014-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-zargonfront-dev-173014-deployment",
+      "UnauthRoleName": "amplify-zargonfront-dev-173014-unauthRole",
+      "StackName": "amplify-zargonfront-dev-173014",
+      "StackId": "arn:aws:cloudformation:us-east-1:956782569109:stack/amplify-zargonfront-dev-173014/38799210-cf87-11ee-881d-0ae5fe4100b5",
+      "AmplifyAppId": "doy76y7h16j8"
+    }
+  }
+}
