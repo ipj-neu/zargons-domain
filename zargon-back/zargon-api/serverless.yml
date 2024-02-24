@@ -45,7 +45,6 @@ functions:
           method: put
           authorizer:
             type: aws_iam
-
   start-session:
     handler: start_session.handler
     package:
@@ -55,5 +54,16 @@ functions:
       - httpApi:
           path: /session/{sessionId}
           method: post
+          authorizer:
+            type: aws_iam
+  close-session:
+    handler: close_session.handler
+    package:
+      include:
+        - close_session.py
+    events:
+      - httpApi:
+          path: /session/{sessionId}/close
+          method: put
           authorizer:
             type: aws_iam
