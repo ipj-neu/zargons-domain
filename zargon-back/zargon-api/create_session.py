@@ -28,13 +28,13 @@ def handler(event, context):
         #Storing name from body
         name = body["name"]
 
-        #Storing zargonId from Incognito
-        zargonId = event["requestContext"]["authorizer"]["iam"]["cognitoIdentity"]["identityId"]
+        #Storing userId from Incognito
+        userId = event["requestContext"]["authorizer"]["iam"]["cognitoIdentity"]["identityId"]
 
         #Putting the entire Item into the dynamoDB table
         dynamoTable.put_item(Item={
             'sessionId' : sessionId,
-            'zargonId' : zargonId,
+            'userId' : userId,
             'heroes' : {
                 'Barbarian' : {
                     "Name" : "",
