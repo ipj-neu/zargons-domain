@@ -6,3 +6,64 @@ frameworkVersion: "3"
 provider:
   name: aws
   region: us-east-2
+  runtime: python3.11
+  environment:
+    STAGE: ${opt:stage, self:provider.stage}
+  httpApi:
+    cors: true
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: "*"
+
+package:
+  individually: true
+  exclude:
+    - "**/**"
+
+functions:
+  connect:
+    name: connect-${opt:stage, self:provider.stage}
+    handler: handler.connect
+    package:
+      include:
+        - handler.py
+    events:
+      - websocket:
+          route: $connect
+          authorizer:
+            name: socket-authorizor
+            identitySource:
+              - "route.request.querystring.tempPassword"
+
+  disconnect:
+    handler: handler.disconnect
+    package:
+      include:
+        - handler.py
+    events:
+      - websocket:
+          route: $disconnect
+
+  socket-authorizor:
+    name: socket-authorizor-${opt:stage, self:provider.stage}
+    handler: authorizor.handler
+    package:
+      include:
+        - authorizor.py
+
+  get-temp-password:
+    name: get-temp-password-${opt:stage, self:provider.stage}
+    handler: get_temp_password.handler
+    package:
+      include:
+        - get_temp_password.py
+    events:
+      - httpApi:
+          path: /temp-password
+          method: get
+          authorizer:
+            type: aws_iam

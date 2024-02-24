@@ -68,7 +68,8 @@ resources:
                 - Effect: "Allow"
                   Action:
                     - execute-api:Invoke
-                  Resource: "*"
+                  Resource:
+                    - arn:aws:execute-api:*:*:*
 
     # IAM role for unauthenticated users
     UnauthenticatedRole:
