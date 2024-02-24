@@ -95,7 +95,7 @@ def handler(event, context):
                     "Spells" : ["Ball of Flame", "Courage", "Fire of Wrath", "Water of Healing", "Sleep", "Veil of Mist", "Swift Wind", "Genie", "Tempest"]
                 },
             },
-            'availableHeroes' : [],
+            'unavailableHeroes' : [],
             'name' : name,
             'gmSocketUrl' : "",
             'playersSocketUrl' : [],

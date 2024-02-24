@@ -40,27 +40,27 @@ def handler(event, context):
         #Now you have the hero details, which you can use as needed
         hero = heroes[hero_name]
 
-        # Retrieve "availableHeroes" array from the session item
-        available_heroes = response['Item'].get('availableHeroes', [])
+        # Retrieve "unavailableHeroes" array from the session item
+        unavailable_heroes = response['Item'].get('unavailableHeroes', [])
 
-        # Check if hero_name is in the "availableHeroes" array
-        if hero_name in available_heroes:
+        # Check if hero_name is in the "unavailableHeroes" array
+        if hero_name in unavailable_heroes:
             return {"statusCode": 409, "body": json.dumps({"message": "Hero already selected"})}
         else:
-            # Hero name is not in availableHeroes, handle accordingly
-            # Append hero_name to available_heroes
-            available_heroes.append(hero_name)
+            # Hero name is not in unavailableHeroes, handle accordingly
+            # Append hero_name to unavailable_heroes
+            unavailable_heroes.append(hero_name)
 
             # Update the item in DynamoDB
             response = dynamoTable.update_item(
                 Key={'sessionId': sessionId},
-                UpdateExpression="SET availableHeroes = :heroes",
+                UpdateExpression="SET unavailableHeroes = :heroes",
                 ExpressionAttributeValues={
-                    ':heroes': available_heroes
+                    ':heroes': unavailable_heroes
                 },
                 ReturnValues="UPDATED_NEW"
             )
-            
+
         return hero
 
     #Display error message
