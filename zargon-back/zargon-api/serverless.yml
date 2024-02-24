@@ -9,6 +9,13 @@ provider:
   runtime: python3.11
   httpApi:
     cors: true
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: "*"
 
 package:
   individually: true
@@ -25,6 +32,17 @@ functions:
       - httpApi:
           path: /session
           method: post
+          authorizer:
+            type: aws_iam
+  select-hero:
+    handler: select_hero.handler
+    package:
+      include:
+        - select_hero.py
+    events:
+      - httpApi:
+          path: /session/{sessionId}/select
+          method: put
           authorizer:
             type: aws_iam
 
