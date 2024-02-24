@@ -45,3 +45,15 @@ functions:
           method: put
           authorizer:
             type: aws_iam
+
+  start-session:
+    handler: start_session.handler
+    package:
+      include:
+        - start_session.py
+    events:
+      - httpApi:
+          path: /session/{sessionId}
+          method: post
+          authorizer:
+            type: aws_iam
