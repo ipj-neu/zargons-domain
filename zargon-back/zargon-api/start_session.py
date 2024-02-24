@@ -1,7 +1,4 @@
 import boto3
-from boto3.dynamodb.conditions import Key
-from os import getenv
-from uuid import uuid4
 import random
 import string
 import json
@@ -13,11 +10,13 @@ session_table = boto3.resource('dynamodb', region_name = region_name).Table('dev
 def handler(event, context):
     try:
         # Get sessionId from our path parameters
-        sessionId = event.get("queryStringParameters", {})
+        path_params = event.get("pathParameters", {})
+
         # return sessionId
+        sessionId = path_params.get("sessionId", "")
 
         # Get our session from our dynamodb table
-        session = session_table.get_item(Key = { "sessionId": sessionId })["Item"]
+        session = session_table.get_item(Key = { "sessionId": sessionId }).get("Item")
 
         # Checks if session exists or not
         if session is None:
@@ -38,6 +37,7 @@ def handler(event, context):
     
     except Exception as e:
         # If something goes wrong, we return a 500
+        print(e)
         return response(500, { "message": "Internal Server Error" })
 
 def generate_random_code():
@@ -55,5 +55,5 @@ def response(code, body):
         "headers": {
             "Content-Type": "application/json"
         },
-        "body": body
+        "body": json.dumps(body)
     }

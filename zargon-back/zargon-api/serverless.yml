@@ -55,5 +55,5 @@ functions:
       - httpApi:
           path: /session/{sessionId}
           method: post
-            authorizer:
+          authorizer:
             type: aws_iam
