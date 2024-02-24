@@ -53,7 +53,7 @@ functions:
     handler: authorizor.handler
     package:
       include:
-        - authorizor.py
+        - authorizer.py
 
   get-temp-password:
     name: get-temp-password-${opt:stage, self:provider.stage}
