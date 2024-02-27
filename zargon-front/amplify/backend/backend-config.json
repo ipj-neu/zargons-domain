@@ -1,1 +1,101 @@
-{}
+{
+  "auth": {
+    "zargonfront32ba5431": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "imported"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_auth_zargonfront32ba5431_allowUnauthenticatedIdentities": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_authRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_authRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_identityPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_identityPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_unauthRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_unauthRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    },
+    "AMPLIFY_auth_zargonfront32ba5431_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "zargonfront32ba5431"
+        }
+      ]
+    }
+  }
+}
