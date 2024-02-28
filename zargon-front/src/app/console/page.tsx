@@ -25,5 +25,5 @@ export default function Console() {
     fetchUserSessions();
   }, []);
 
-  return <div className="flex flex-col justify-center items-center"></div>;
+  return <div></div>;
 }

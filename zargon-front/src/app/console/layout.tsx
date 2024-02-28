@@ -20,7 +20,19 @@ Amplify.configure({
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="">
-      <Authenticator>{children}</Authenticator>
+      <Authenticator>
+        {({ signOut }) => (
+          <>
+            <nav className="flex flex-1 justify-between p-2">
+              <p>Zargon's Domain</p>
+              <button onClick={signOut} className="p-1 rounded bg-sand">
+                Logout
+              </button>
+            </nav>
+            {children}
+          </>
+        )}
+      </Authenticator>
     </div>
   );
 }
