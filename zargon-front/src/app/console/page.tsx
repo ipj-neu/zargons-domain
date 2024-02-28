@@ -1,21 +1,29 @@
 "use client";
 
-import { fetchUserAttributes, FetchUserAttributesOutput } from "aws-amplify/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { Session } from "@/types";
+import { get } from "aws-amplify/api";
 
 export default function Console() {
-  const [userProps, setUserProps] = useState<FetchUserAttributesOutput | null>(null);
+  const [userSessions, setUserSessions] = useState<Session[] | undefined>(undefined);
 
-  useEffect(() => {
-    fetchUserAttributes().then((user) => {
-      setUserProps(user);
-    });
+  const fetchUserSessions = useCallback(async () => {
+    try {
+      const res = await get({
+        apiName: "SessionAPI",
+        path: "/session",
+      }).response;
+      const data = (await res.body.json()) as Session[];
+      console.log("User sessions", data);
+      setUserSessions(data);
+    } catch (error) {
+      console.error("Error fetching user sessions", error);
+    }
   }, []);
 
-  return (
-    <div className="flex flex-col justify-center items-center">
-      <h1>Console Screen</h1>
-      <h2>{userProps?.email}</h2>
-    </div>
-  );
+  useEffect(() => {
+    fetchUserSessions();
+  }, []);
+
+  return <div className="flex flex-col justify-center items-center"></div>;
 }

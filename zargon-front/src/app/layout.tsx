@@ -15,8 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <nav>
-          <Link href="/console" className="">
+        <nav className="flex flex-1 justify-between p-2">
+          <p>Zargon's Domain</p>
+          <Link href="/console" className="p-2 rounded bg-sand">
             Login
           </Link>
         </nav>
