@@ -90,3 +90,15 @@ functions:
           method: get
           authorizer:
             type: aws_iam
+
+  join-session:
+    handler: join_session.handler
+    package:
+      include:
+        - join_session.py
+    events:
+      - httpApi:
+          path: /session/join
+          method: put
+          authorizer:
+            type: aws_iam
