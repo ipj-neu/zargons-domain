@@ -25,5 +25,12 @@ export default function Console() {
     fetchUserSessions();
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      <div className="flex justify-between p-4">
+        <button className="rounded px-4 py-2 bg-sand">Join</button>
+        <button className="rounded px-4 py-2 bg-sand">Create</button>
+      </div>
+    </div>
+  );
 }
