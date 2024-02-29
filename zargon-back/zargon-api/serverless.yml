@@ -66,7 +66,7 @@ functions:
           path: /session/{sessionId}/close
           method: put
           authorizer:
-            type: aws_iam 
+            type: aws_iam
   update-hero:
     handler: update_hero.handler
     package:
@@ -75,6 +75,30 @@ functions:
     events:
       - httpApi:
           path: /session/{sessionId}/updateHero/{heroType}
+          method: put
+          authorizer:
+            type: aws_iam
+
+  get-sessions:
+    handler: get_sessions.handler
+    package:
+      include:
+        - get_sessions.py
+    events:
+      - httpApi:
+          path: /session
+          method: get
+          authorizer:
+            type: aws_iam
+
+  join-session:
+    handler: join_session.handler
+    package:
+      include:
+        - join_session.py
+    events:
+      - httpApi:
+          path: /session/join
           method: put
           authorizer:
             type: aws_iam
