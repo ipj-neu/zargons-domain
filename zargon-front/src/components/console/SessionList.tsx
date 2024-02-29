@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState } from "react";
 import { get } from "@aws-amplify/api";
 import { Session } from "@/types";
 import SessionItem from "./SessionItem";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function SessionList() {
   const [userSessions, setUserSessions] = useState<Session[] | undefined>(undefined);
@@ -40,14 +40,16 @@ export default function SessionList() {
   }, []);
 
   return (
-    <div className="flex bg-slate-200 rounded-t-lg p-1">
-      <button
-        onClick={handleStartSession}
-        className={`rounded px-5 py-3 bg-sand ${selectedSession == undefined ? "opacity-50" : "hover:opacity-90"}`}
-        disabled={true}
-      >
-        Start
-      </button>
+    <>
+      <div className="flex bg-slate-200 rounded-t-lg p-1">
+        <button
+          onClick={handleStartSession}
+          className={`rounded px-5 py-3 bg-sand ${selectedSession == undefined ? "opacity-50" : "hover:opacity-90"}`}
+          disabled={true}
+        >
+          Start
+        </button>
+      </div>
       {userSessions ? (
         <div className="flex flex-col flex-1">
           {userSessions.map((session) => (
@@ -57,8 +59,10 @@ export default function SessionList() {
           ))}
         </div>
       ) : (
-        <p>Loading...</p>
+        <div className="flex flex-1 justify-center items-center">
+          <p>Loading...</p>
+        </div>
       )}
-    </div>
+    </>
   );
 }

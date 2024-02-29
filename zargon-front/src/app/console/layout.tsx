@@ -5,8 +5,11 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
 import awsExports from "@/aws-exports.js";
 
+// This process is done to get configuration from aws-exports.js to the format we need to add the API manually
+Amplify.configure(awsExports);
+const exports = Amplify.getConfig();
 Amplify.configure({
-  ...awsExports,
+  ...exports,
   API: {
     REST: {
       SessionAPI: {
