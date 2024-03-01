@@ -1,8 +1,11 @@
+"use client";
+
 import { useEffect, useCallback, useState } from "react";
 import { get } from "@aws-amplify/api";
 import { Session } from "@/types";
 import SessionItem from "./SessionItem";
 import { useRouter } from "next/navigation";
+import { IoMdRefresh } from "react-icons/io";
 
 export default function SessionList() {
   const [userSessions, setUserSessions] = useState<Session[] | undefined>(undefined);
@@ -11,6 +14,7 @@ export default function SessionList() {
 
   const fetchUserSessions = useCallback(async () => {
     try {
+      setUserSessions(undefined);
       const res = await get({
         apiName: "SessionAPI",
         path: "/session",
@@ -31,7 +35,14 @@ export default function SessionList() {
 
   const handleSelectedSession = useCallback((session: Session) => {
     return () => {
-      setSelectedSession(session);
+      setSelectedSession((prev) => (prev && prev.sessionId == session.sessionId ? undefined : session));
+    };
+  }, []);
+
+  const handleDeleteSession = useCallback((sessionId: string) => {
+    return async () => {
+      console.log("Confirm delete session", sessionId);
+      router.push(`/console/delete/${sessionId}`);
     };
   }, []);
 
@@ -41,20 +52,28 @@ export default function SessionList() {
 
   return (
     <>
-      <div className="flex bg-slate-200 rounded-t-lg p-1">
+      <div className="flex justify-between bg-slate-200 rounded-t-lg p-2">
         <button
           onClick={handleStartSession}
-          className={`rounded px-5 py-3 bg-sand ${selectedSession == undefined ? "opacity-50" : "hover:opacity-90"}`}
+          className={`rounded px-3 py-1 bg-sand ${selectedSession == undefined ? "opacity-50" : "hover:opacity-90"}`}
           disabled={true}
         >
           Start
+        </button>
+        <button className="rounded px-3 py-1 bg-sand hover:opacity-90">
+          <IoMdRefresh size={20} onClick={fetchUserSessions} />
         </button>
       </div>
       {userSessions ? (
         <div className="flex flex-col flex-1">
           {userSessions.map((session) => (
             <div onClick={handleSelectedSession(session)}>
-              <SessionItem key={session.sessionId} session={session} selected={selectedSession ? selectedSession.sessionId == session.sessionId : false} />
+              <SessionItem
+                key={session.sessionId}
+                session={session}
+                selected={selectedSession ? selectedSession.sessionId == session.sessionId : false}
+                onDelete={handleDeleteSession(session.sessionId)}
+              />
             </div>
           ))}
         </div>
