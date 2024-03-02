@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HeroModal from './hero_modal';
+import { Hero } from '@/types';
 
 interface HeroDisplayProps {
     hero?: Hero;
@@ -29,9 +30,9 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
             <div className="w-80 z-[60] bg-cover bg-center" style={{ backgroundImage: `url(${imgUrl})`}}></div>
 
             {/* Simple Hero Info */}
-            <div className="text-right z-[60] p-5 w-fit flex flex-col text-3xl text-slate-200 bg-slate-700">
+            <div className="text-right z-[60] p-5 w-fit flex flex-col text-3xl text-main-white bg-main-brown">
                 {/* Title Bar */}
-                <div className="bg-slate-900 -ml-5 -mr-5 -mt-5 mb-3 px-5 py-1">
+                <div className="bg-dark-brown -ml-5 -mr-5 -mt-5 mb-3 px-5 py-1">
                     <p className="text-4xl/loose text-center text-nowrap">Name: {currentHero?.Name || '???'}</p>
                 </div>
 
@@ -47,118 +48,96 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
             {/* Hero Modal With More Info */}
             <div>
                 <HeroModal isOpen={isModalOpen} onClose={toggleModal}>
-                    <div className="flex flex-col">
-                        {/* Title Bar */}
-                        <div className="flex flex-row justify-evenly p-2 rounded-tl-lg bg-slate-800 text-slate-200 text-2xl/loose">
-                            <p>Name: {currentHero?.Name || '???'}</p>
-                            <p>Gold: {currentHero?.GoldCoins || '???'}</p>
-                        </div>
-
-                        {/* First Row, Contains Weapons and Armor */}
-                        <div className="flex flex-row mx-8 mt-8 mb-4">
-                            {/* Weapons List */}
-                            <div className="mr-4">
-                                {/* Title Bar */}
-                                <div className="flex justify-center p-1 rounded-t-lg bg-red-700 text-slate-200">
-                                    <p className="text-2xl/loose">Weapons</p>
-                                </div>
-
-                                {/* List Items */}
-                                <div className="flex flex-col overflow-auto max-h-48 min-w-80 bg-slate-700 rounded-b-lg text-slate-200 text-2xl/loose">
-                                    <p className="px-3">Rusty Dagger</p>
-                                    <p className="px-3 bg-slate-800">Rusty Dagger</p>
-                                    <p className="px-3">Rusty Dagger</p>
-                                    <p className="px-3 bg-slate-800">Rusty Dagger</p>
-                                    <p className="px-3">Rusty Dagger</p>
-                                    <p className="px-3 bg-slate-800">Rusty Dagger</p>
-                                </div>
-                            </div>
-
-                            {/* Armor List */}
-                            <div className="ml-4">
-                                {/* Title Bar */}
-                                <div className="flex justify-center p-1 rounded-t-lg bg-blue-700 text-slate-200">
-                                    <p className="text-2xl/loose">Armor</p>
-                                </div>
-
-                                {/* List Items */}
-                                <div className="flex flex-col overflow-auto max-h-48 min-w-80 bg-slate-700 rounded-b-lg text-slate-200 text-2xl/loose">
-                                    <p className="px-3">Rags</p>
-                                    <p className="px-3 bg-slate-800">Rags</p>
-                                    <p className="px-3">Rags</p>
-                                    <p className="px-3 bg-slate-800">Rags</p>
-                                    <p className="px-3">Rags</p>
-                                    <p className="px-3 bg-slate-800">Rags</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Second Row, Contains Artifacts and Potions */}
-                        <div className="flex flex-row mx-8 mt-4 mb-8">
-                            {/* Artifacts List */}
-                            <div className="mr-4">
-                                {/* Title Bar */}
-                                <div className="flex justify-center p-1 rounded-t-lg bg-purple-700 text-slate-200">
-                                    <p className="text-2xl/loose">Artifacts</p>
-                                </div>
-
-                                {/* List Items */}
-                                <div className="flex flex-col overflow-auto max-h-48 min-w-80 bg-slate-700 rounded-b-lg text-slate-200 text-2xl/loose">
-                                    <p className="px-3">Hunger</p>
-                                    <p className="px-3 bg-slate-800">Hunger</p>
-                                    <p className="px-3">Hunger</p>
-                                    <p className="px-3 bg-slate-800">Hunger</p>
-                                    <p className="px-3">Hunger</p>
-                                    <p className="px-3 bg-slate-800">Hunger</p>
-                                </div>
-                            </div>
-
-                            {/* Potions List */}
-                            <div className="ml-4">
-                                {/* Title Bar */}
-                                <div className="flex justify-center p-1 rounded-t-lg bg-green-700 text-slate-200">
-                                    <p className="text-2xl/loose">Potions</p>
-                                </div>
-
-                                {/* List Items */}
-                                <div className="flex flex-col overflow-auto max-h-48 min-w-80 bg-slate-700 rounded-b-lg text-slate-200 text-2xl/loose">
-                                    <p className="px-3">Potion of Nothing</p>
-                                    <p className="px-3 bg-slate-800">Potion of Nothing</p>
-                                    <p className="px-3">Potion of Nothing</p>
-                                    <p className="px-3 bg-slate-800">Potion of Nothing</p>
-                                    <p className="px-3">Potion of Nothing</p>
-                                    <p className="px-3 bg-slate-800">Potion of Nothing</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Title Bar */}
-                        <div className="flex flex-row justify-evenly p-2 rounded-bl-lg bg-slate-800 text-slate-200">
-                            <p>Attack: {currentHero?.Atk || '???'}</p>
-                            <p>Defense: {currentHero?.Def || '???'}</p>
-                            <p>Body: {currentHero?.BodyPoints || '???'}</p>
-                            <p>Mind: {currentHero?.StartingMind || '???'}</p>
-                            <p>Movement: {currentHero?.Movement || '???'}</p>
-                        </div>
-                    </div>
-
-                    { currentHero?.Spells ? (    
-                        <div className="flex flex-col bg-slate-900">
+                    <div className={`grid grid-rows-1 ${currentHero?.Spells ? 'grid-cols-3' : 'grid-cols-2'} bg-main-brown rounded-lg overflow-hidden`}>
+                        <div className="flex flex-col col-span-2">
                             {/* Title Bar */}
-                            <div className="flex flex-row justify-evenly p-2 rounded-tr-lg bg-slate-950 text-slate-200 text-2xl/loose">
-                                Spells
+                            <div className="flex flex-row justify-evenly align-top p-2 bg-dark-brown text-main-white text-2xl/loose">
+                                <p>Name: {currentHero?.Name || '???'}</p>
+                                <p>Gold: {currentHero?.GoldCoins || '???'}</p>
                             </div>
 
-                            {/* Spells */}
-                            <div className="overflow-auto">
-                                {currentHero?.Spells?.map((spell, index) => (
-                                    <p key={index} className={`${index % 2 === 0 ? 'bg-slate-800' : 'bg-slate-900'} text-slate-200 py-2`}>
-                                        {spell}
-                                    </p>
-                                ))}
+                            <div className="grid grid-rows-2 grid-cols-2 items-center flex-grow justify-items-center gap-4 p-4">
+                                {/* Weapons List */}
+                                <div className="h-fit max-w-96 rounded-lg overflow-hidden">
+                                    {/* Title Bar */}
+                                    <div className="flex justify-center p-1 bg-red-800 text-main-white">
+                                        <p className="text-2xl/loose">Weapons</p>
+                                    </div>
+
+                                    {/* List Items */}
+                                    <div className="flex flex-col min-w-96 max-h-48 overflow-hidden rounded-b-lg text-main-white text-2xl/loose">
+                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none"/>
+                                    </div>
+                                </div>
+
+                                {/* Armor List */}
+                                <div className="h-fit max-w-96 rounded-lg overflow-hidden">
+                                    {/* Title Bar */}
+                                    <div className="flex justify-center p-1 bg-blue-800 text-main-white">
+                                        <p className="text-2xl/loose">Armor</p>
+                                    </div>
+
+                                    {/* List Items */}
+                                    <div className="flex flex-col min-w-96 max-h-48 overflow-hidden rounded-b-lg text-main-white text-2xl/loose">
+                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none"/>
+                                    </div>
+                                </div>
+
+                                {/* Artifacts List */}
+                                <div className="h-fit max-w-96 rounded-lg overflow-hidden">
+                                    {/* Title Bar */}
+                                    <div className="flex justify-center p-1 bg-stone-800 text-main-white">
+                                        <p className="text-2xl/loose">Artifacts</p>
+                                    </div>
+
+                                    {/* List Items */}
+                                    <div className="flex flex-col min-w-96 max-h-48 overflow-hidden rounded-b-lg text-main-white text-2xl/loose">
+                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none"/>
+                                    </div>
+                                </div>
+
+                                {/* Potions List */}
+                                <div className="h-fit max-w-96 rounded-lg overflow-hidden">
+                                    {/* Title Bar */}
+                                    <div className="flex justify-center p-1 bg-green-800 text-main-white">
+                                        <p className="text-2xl/loose">Potions</p>
+                                    </div>
+
+                                    {/* List Items */}
+                                    <div className="flex flex-col min-w-96 max-h-48 overflow-hidden rounded-b-lg text-main-white text-2xl/loose">
+                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Bottom Bar */}
+                            <div className="flex flex-row justify-evenly align-bottom p-2 bg-slate-800 text-main-white">
+                                <p>Attack: {currentHero?.Atk || '???'}</p>
+                                <p>Defense: {currentHero?.Def || '???'}</p>
+                                <p>Body: {currentHero?.BodyPoints || '???'}</p>
+                                <p>Mind: {currentHero?.StartingMind || '???'}</p>
+                                <p>Movement: {currentHero?.Movement || '???'}</p>
                             </div>
                         </div>
-                    ) : (null)}
+
+                        { currentHero?.Spells ? (    
+                            <div className="flex flex-col bg-zinc-700 min-w-64">
+                                {/* Title Bar */}
+                                <div className="flex flex-row justify-evenly p-2 bg-purple-800 text-main-white text-2xl/loose">
+                                    Spells
+                                </div>
+
+                                {/* Spells */}
+                                <div className="overflow-auto">
+                                    { currentHero?.Spells?.map((spell, index) => (
+                                        <p key={index} className={`${index % 2 === 0 ? '' : 'bg-zinc-800'} text-main-white border-black p-2`}>
+                                            {spell}
+                                        </p>
+                                    )) }
+                                </div>
+                            </div>
+                        ) : (null) }
+                    </div>
                 </HeroModal>
             </div>
         </div>
@@ -167,80 +146,60 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
 
 export default HeroDisplay;
 
-// {/* First Row, Contains Weapons and Armor */}
-// <div className="flex flex-row mx-8 mt-8 mb-4">
-// {/* Weapons List */}
-// <div className="mr-4">
-//     {/* Title Bar */}
-//     <div className="flex justify-center p-1 rounded-t-lg bg-red-700 text-slate-200">
-//         <p className="text-2xl/loose">Weapons</p>
-//     </div>
+                            // {/* First Row, Contains Weapons and Armor */}
+                            // <div className="flex flex-row mx-8 mt-8 mb-4">
+                            //     {/* Weapons List */}
+                            //     <div className="mr-4 rounded-lg overflow-hidden">
+                            //         {/* Title Bar */}
+                            //         <div className="flex justify-center p-1 bg-red-800 text-main-white">
+                            //             <p className="text-2xl/loose">Weapons</p>
+                            //         </div>
 
-//     {/* List Items */}
-//     <div className="flex flex-col overflow-auto max-h-48 min-w-80 bg-slate-700 rounded-b-lg text-slate-200 text-2xl/loose">
-//         <p className="px-3">Rusty Dagger</p>
-//         <p className="px-3 bg-slate-800">Rusty Dagger</p>
-//         <p className="px-3">Rusty Dagger</p>
-//         <p className="px-3 bg-slate-800">Rusty Dagger</p>
-//         <p className="px-3">Rusty Dagger</p>
-//         <p className="px-3 bg-slate-800">Rusty Dagger</p>
-//     </div>
-// </div>
+                            //         {/* List Items */}
+                            //         <div className="flex flex-col min-w-96 overflow-hidden text-main-white text-2xl/loose">
+                            //             <textarea className="text-black bg-main-white text-lg p-2 min-h-48 max-h-64 rounded-b-lg overflow-hidden hover:overflow-auto"/>
+                            //         </div>
+                            //     </div>
 
-// {/* Armor List */}
-// <div className="ml-4">
-//     {/* Title Bar */}
-//     <div className="flex justify-center p-1 rounded-t-lg bg-blue-700 text-slate-200">
-//         <p className="text-2xl/loose">Armor</p>
-//     </div>
+                            //     {/* Armor List */}
+                            //     <div className="ml-4 rounded-lg overflow-hidden">
+                            //         {/* Title Bar */}
+                            //         <div className="flex justify-center p-1 bg-blue-800 text-main-white">
+                            //             <p className="text-2xl/loose">Armor</p>
+                            //         </div>
 
-//     {/* List Items */}
-//     <div className="flex flex-col overflow-auto max-h-48 min-w-80 bg-slate-700 rounded-b-lg text-slate-200 text-2xl/loose">
-//         <p className="px-3">Rags</p>
-//         <p className="px-3 bg-slate-800">Rags</p>
-//         <p className="px-3">Rags</p>
-//         <p className="px-3 bg-slate-800">Rags</p>
-//         <p className="px-3">Rags</p>
-//         <p className="px-3 bg-slate-800">Rags</p>
-//     </div>
-// </div>
-// </div>
+                            //         {/* List Items */}
+                            //         <div className="flex flex-col min-w-96 overflow-hidden text-main-white text-2xl/loose">
+                            //             <textarea className="text-black bg-main-white text-lg p-2 min-h-48 max-h-64 rounded-b-lg  overflow-hidden hover:overflow-auto"/>
+                            //         </div>
+                            //     </div>
+                            // </div>
 
-// {/* Second Row, Contains Artifacts and Potions */}
-// <div className="flex flex-row mx-8 mt-4 mb-8">
-// {/* Artifacts List */}
-// <div className="mr-4">
-//     {/* Title Bar */}
-//     <div className="flex justify-center p-1 rounded-t-lg bg-purple-700 text-slate-200">
-//         <p className="text-2xl/loose">Artifacts</p>
-//     </div>
+                            // {/* Second Row, Contains Artifacts and Potions */}
+                            // <div className="flex flex-row mx-8 mt-4 mb-8">
+                            //     {/* Artifacts List */}
+                            //     <div className="mr-4 rounded-lg overflow-hidden">
+                            //         {/* Title Bar */}
+                            //         <div className="flex justify-center p-1 bg-stone-800 text-main-white">
+                            //             <p className="text-2xl/loose">Artifacts</p>
+                            //         </div>
 
-//     {/* List Items */}
-//     <div className="flex flex-col overflow-auto max-h-48 min-w-80 bg-slate-700 rounded-b-lg text-slate-200 text-2xl/loose">
-//         <p className="px-3">Hunger</p>
-//         <p className="px-3 bg-slate-800">Hunger</p>
-//         <p className="px-3">Hunger</p>
-//         <p className="px-3 bg-slate-800">Hunger</p>
-//         <p className="px-3">Hunger</p>
-//         <p className="px-3 bg-slate-800">Hunger</p>
-//     </div>
-// </div>
+                            //         {/* List Items */}
+                            //         <div className="flex flex-col min-w-96 overflow-hidden text-main-white text-2xl/loose">
+                            //             <textarea className="text-black bg-main-white text-lg p-2 min-h-48 max-h-64 rounded-b-lg overflow-hidden hover:overflow-auto"/>
+                            //         </div>
+                            //     </div>
 
-// {/* Potions List */}
-// <div className="ml-4">
-//     {/* Title Bar */}
-//     <div className="flex justify-center p-1 rounded-t-lg bg-green-700 text-slate-200">
-//         <p className="text-2xl/loose">Potions</p>
-//     </div>
+                            //     {/* Potions List */}
+                            //     <div className="ml-4 rounded-lg overflow-hidden">
+                            //         {/* Title Bar */}
+                            //         <div className="flex justify-center p-1 bg-green-800 text-main-white">
+                            //             <p className="text-2xl/loose">Potions</p>
+                            //         </div>
 
-//     {/* List Items */}
-//     <div className="flex flex-col overflow-auto max-h-48 min-w-80 bg-slate-700 rounded-b-lg text-slate-200 text-2xl/loose">
-//         <p className="px-3">Potion of Nothing</p>
-//         <p className="px-3 bg-slate-800">Potion of Nothing</p>
-//         <p className="px-3">Potion of Nothing</p>
-//         <p className="px-3 bg-slate-800">Potion of Nothing</p>
-//         <p className="px-3">Potion of Nothing</p>
-//         <p className="px-3 bg-slate-800">Potion of Nothing</p>
-//     </div>
-// </div>
-// </div>
+                            //         {/* List Items */}
+                            //         <div className="flex flex-col min-w-96 overflow-hidden text-main-white text-2xl/loose">
+                            //             <textarea className="text-black bg-main-white text-lg p-2 min-h-48 max-h-64 rounded-b-lg overflow-hidden hover:overflow-auto"/>
+                            //         </div>
+                            //     </div>
+                            // </div>
