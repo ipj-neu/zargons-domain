@@ -10,23 +10,6 @@
       "StackName": "amplify-zargonfront-dev-92133",
       "StackId": "arn:aws:cloudformation:us-east-2:956782569109:stack/amplify-zargonfront-dev-92133/1c379520-d4c3-11ee-a0cf-069f3638a1d5",
       "AmplifyAppId": "d2vvhhokd5v6bh"
-    },
-    "categories": {
-      "auth": {
-        "zargonfront32ba5431": {
-          "userPoolId": "us-east-2_tOwZdP4mK",
-          "userPoolName": "ZargonUserPool-TNjEErJudsB2",
-          "webClientId": "7k45cvo2l5abea697obqdpkp7j",
-          "nativeClientId": "7k45cvo2l5abea697obqdpkp7j",
-          "identityPoolId": "us-east-2:ccf9b79c-79fd-4fb7-a577-7ee007d3ec4d",
-          "identityPoolName": "ZargonIdentityPool_dpV7V8k47jWt",
-          "allowUnauthenticatedIdentities": false,
-          "authRoleArn": "arn:aws:iam::956782569109:role/auth-dev-AuthenticatedRole-tkK2R0TSmsPB",
-          "authRoleName": "auth-dev-AuthenticatedRole-tkK2R0TSmsPB",
-          "unauthRoleArn": "arn:aws:iam::956782569109:role/auth-dev-UnauthenticatedRole-ch0sxLRfAdGb",
-          "unauthRoleName": "auth-dev-UnauthenticatedRole-ch0sxLRfAdGb"
-        }
-      }
     }
   }
 }
