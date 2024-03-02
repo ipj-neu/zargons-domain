@@ -91,6 +91,18 @@ functions:
           authorizer:
             type: aws_iam
 
+  get-session:
+    handler: get_session.handler
+    package:
+      include:
+        - get_session.py
+    events:
+      - httpApi:
+          path: /session/{sessionId}
+          method: get
+          authorizer:
+            type: aws_iam
+
   join-session:
     handler: join_session.handler
     package:
