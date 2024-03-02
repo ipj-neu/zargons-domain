@@ -1,15 +1,15 @@
 export type Hero = {
   Armor: string;
   Atk: string;
-  BodyPoints: string;
+  "Body Points": string;
   Def: string;
-  GoldCoins: string;
+  "Gold Coins": string;
   Items: string;
   Movement: string;
   Name: string;
   Potions: string;
-  StartingBody: string;
-  StartingMind: string;
+  "Starting Body": string;
+  "Starting Mind": string;
   Weapons: string;
   Spells?: string[];
 };
