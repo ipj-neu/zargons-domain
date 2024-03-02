@@ -39,10 +39,10 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
                 {/* Hero Stats */}
                 <p>Attack: {currentHero?.Atk || '???'}</p>
                 <p>Defense: {currentHero?.Def || '???'}</p>
-                <p>Body: {currentHero?.BodyPoints || '???'}</p>
-                <p>Mind: {currentHero?.StartingMind || '???'}</p>
+                <p>Body: {currentHero?.['Body Points'] || '???'}</p>
+                <p>Mind: {currentHero?.['Starting Mind'] || '???'}</p>
                 <p>Movement: {currentHero?.Movement || '???'}</p>
-                <p>Gold: {currentHero?.GoldCoins || '???'}</p>
+                <p>Gold: {currentHero?.['Gold Coins'] || '???'}</p>
             </div>
 
             {/* Hero Modal With More Info */}
@@ -53,7 +53,7 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
                             {/* Title Bar */}
                             <div className="flex flex-row justify-evenly align-top p-2 bg-dark-brown text-main-white text-2xl/loose">
                                 <p>Name: {currentHero?.Name || '???'}</p>
-                                <p>Gold: {currentHero?.GoldCoins || '???'}</p>
+                                <p>Gold: {currentHero?.['Gold Coins'] || '???'}</p>
                             </div>
 
                             <div className="grid grid-rows-2 grid-cols-2 items-center flex-grow justify-items-center gap-4 p-4">
@@ -66,7 +66,7 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
 
                                     {/* List Items */}
                                     <div className="flex flex-col min-w-96 max-h-48 overflow-hidden rounded-b-lg text-main-white text-2xl/loose">
-                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none"/>
+                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none" readOnly>{currentHero?.Weapons}</textarea>
                                     </div>
                                 </div>
 
@@ -79,7 +79,7 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
 
                                     {/* List Items */}
                                     <div className="flex flex-col min-w-96 max-h-48 overflow-hidden rounded-b-lg text-main-white text-2xl/loose">
-                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none"/>
+                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none" readOnly>{currentHero?.Armor}</textarea>
                                     </div>
                                 </div>
 
@@ -92,7 +92,7 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
 
                                     {/* List Items */}
                                     <div className="flex flex-col min-w-96 max-h-48 overflow-hidden rounded-b-lg text-main-white text-2xl/loose">
-                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none"/>
+                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none" readOnly>{currentHero?.Items}</textarea>
                                     </div>
                                 </div>
 
@@ -105,7 +105,7 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
 
                                     {/* List Items */}
                                     <div className="flex flex-col min-w-96 max-h-48 overflow-hidden rounded-b-lg text-main-white text-2xl/loose">
-                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none"/>
+                                        <textarea className="text-black bg-main-white text-lg p-2 min-h-48 rounded-b-lg overflow-hidden hover:overflow-auto resize-none" readOnly>{currentHero?.Potions}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -114,8 +114,8 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
                             <div className="flex flex-row justify-evenly align-bottom p-2 bg-slate-800 text-main-white">
                                 <p>Attack: {currentHero?.Atk || '???'}</p>
                                 <p>Defense: {currentHero?.Def || '???'}</p>
-                                <p>Body: {currentHero?.BodyPoints || '???'}</p>
-                                <p>Mind: {currentHero?.StartingMind || '???'}</p>
+                                <p>Body: {currentHero?.['Body Points'] || '???'}</p>
+                                <p>Mind: {currentHero?.['Starting Mind'] || '???'}</p>
                                 <p>Movement: {currentHero?.Movement || '???'}</p>
                             </div>
                         </div>
