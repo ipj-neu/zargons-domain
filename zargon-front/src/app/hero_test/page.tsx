@@ -127,16 +127,16 @@ export default function page() {
     }, []);
 
     return (
-        <div>
+        <div className="bg-main-white flex flex-col h-screen">
             {/* Title Bar */}
-            <div className="flex flex-row justify-evenly align-top p-2 bg-dark-brown text-main-white text-2xl/loose">
-                <span className="px-4 rounded-lg bg-blue-700 text-main-white transition hover:bg-blue-900 cursor-pointer">
+            <div className="flex flex-row align-top p-2 bg-dark-brown text-main-white text-2xl/loose">
+                <span className="absolute px-4 rounded-lg bg-main-brown text-main-white transition hover:bg-orange-800 cursor-pointer">
                     {"<"}
                 </span>
-                <p>name</p>
+                <p className="m-auto">ZARGON</p>
             </div>
 
-            <div className="flex flex-wrap h-screen w-screen bg-slate-950">
+            <div className="flex flex-wrap flex-grow bg-slate-950">
                 <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
                     <HeroDisplay hero={playerOne} imgUrl={playerOneImg} />
                 </div>
@@ -149,11 +149,6 @@ export default function page() {
                 <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
                     <HeroDisplay hero={playerFour} imgUrl={playerFourImg} />
                 </div>
-            </div>
-
-            {/* Bottom Bar */}
-            <div className="flex flex-row justify-evenly align-top p-2 bg-dark-brown text-main-white text-2xl/loose">
-                <p>name</p>
             </div>
         </div>
     );
