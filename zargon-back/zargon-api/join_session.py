@@ -23,7 +23,7 @@ def handler(event, context):
 
     session = response["Items"][0]
 
-    if len(session["playerSocketUrl"]) >= 4:
+    if len(session["playersSocketUrl"]) >= 4:
         return {"statusCode": 400, "body": json.dumps({"message": "Session is full"})}
 
     # get the playerSocketUrl from the connection table

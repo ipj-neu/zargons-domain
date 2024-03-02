@@ -102,3 +102,15 @@ functions:
           method: put
           authorizer:
             type: aws_iam
+
+  delete-session:
+    handler: delete_session.handler
+    package:
+      include:
+        - delete_session.py
+    events:
+      - httpApi:
+          path: /session/{sessionId}
+          method: delete
+          authorizer:
+            type: aws_iam
