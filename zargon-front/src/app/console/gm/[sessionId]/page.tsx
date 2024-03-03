@@ -13,10 +13,10 @@ export default function page({params}: {params: { sessionId: string }}) {
     const [playerThree, setPlayerThree] = useState<Hero>();
     const [playerFour, setPlayerFour] = useState<Hero>();
 
-    const playerOneImg = "/images/wise.jpg"
-    const playerTwoImg = "/images/mug.jpg"
-    const playerThreeImg = "/images/wise.jpg"
-    const playerFourImg = "/images/mug.jpg"
+    const playerOneImg = "/images/barbarian.png"
+    const playerTwoImg = "/images/dwarf.png"
+    const playerThreeImg = "/images/elf.png"
+    const playerFourImg = "/images/wizard.png"
 
     const { session, fetchSession } = useSession();
 
@@ -38,8 +38,9 @@ export default function page({params}: {params: { sessionId: string }}) {
 
 
     return (
-        <div className="bg-main-white flex flex-col h-screen">
-            <div className="flex flex-wrap flex-grow bg-slate-950">
+        <div className="bg-main-white flex flex-col h-screen"> 
+            <p className="absolute text-main-white text-2xl m-4 left-1/2 transform -translate-x-1/2">Join Code: {session?.joinCode || "???"}</p>
+            <div className="flex flex-wrap flex-grow bg-main-white">
                 <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
                     <HeroDisplay hero={playerOne} imgUrl={playerOneImg} />
                 </div>
