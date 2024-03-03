@@ -5,7 +5,9 @@ export default function Console() {
   return (
     <div>
       <div className="flex justify-between p-4">
-        <button className="rounded px-4 py-2 bg-sand hover:opacity-90">Join</button>
+        <Link href="/console/join" className="rounded px-4 py-2 bg-sand hover:opacity-90">
+          Join
+        </Link>
         <Link href="/console/create" className="rounded px-4 py-2 bg-sand hover:opacity-90">
           Create
         </Link>

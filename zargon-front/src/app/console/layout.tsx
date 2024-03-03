@@ -5,6 +5,7 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
 import { IoIosLogOut } from "react-icons/io";
 import awsExports from "@/aws-exports.js";
+import { WebSocketProvider } from "@/contexts/WebSocket";
 
 // This process is done to get configuration from aws-exports.js to the format we need to add the API manually
 Amplify.configure(awsExports);
@@ -17,6 +18,10 @@ Amplify.configure({
         endpoint: "https://v4rohqtdw7.execute-api.us-east-2.amazonaws.com",
         region: "us-east-2",
       },
+      WebSocketAPI: {
+        endpoint: "https://dzfmotf3xe.execute-api.us-east-2.amazonaws.com",
+        region: "us-east-2",
+      },
     },
   },
 });
@@ -27,14 +32,16 @@ export default function Layout({ children, manage }: { children: React.ReactNode
       <Authenticator>
         {({ signOut }) => (
           <>
-            <nav className="flex flex-1 justify-between p-2">
-              <p>Zargon's Domain</p>
-              <button onClick={signOut} className="p-2 rounded bg-sand">
-                <IoIosLogOut size={25} />
-              </button>
-            </nav>
-            {children}
-            {manage}
+            <WebSocketProvider>
+              <nav className="flex flex-1 justify-between p-2">
+                <p>Zargon's Domain</p>
+                <button onClick={signOut} className="p-2 rounded bg-sand">
+                  <IoIosLogOut size={25} />
+                </button>
+              </nav>
+              {children}
+              {manage}
+            </WebSocketProvider>
           </>
         )}
       </Authenticator>

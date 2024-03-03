@@ -45,12 +45,10 @@ export const WebSocketProvider = ({ children }: { children: React.ReactNode }) =
       socket.close();
     }
 
-    // TODO create endpoint and update with correct api info
     const { body } = await get({
-      apiName: "",
-      path: "/preflight",
+      apiName: "WebSocketAPI",
+      path: "/temp-password",
     }).response;
-    // TODO maybe find a better way to handle this
     const body_json = (await body.json()) as { tempPassword: string };
     if (!body_json.tempPassword) {
       console.error("Failed to get temp password");
@@ -58,7 +56,7 @@ export const WebSocketProvider = ({ children }: { children: React.ReactNode }) =
     }
 
     // TODO update with correct api info
-    const newSocket = new WebSocket(`wss://oi8yywbjl5.execute-api.us-east-1.amazonaws.com/dev?tempPassword=${body_json.tempPassword}`);
+    const newSocket = new WebSocket(`wss://7dbdyzg58a.execute-api.us-east-2.amazonaws.com/dev?tempPassword=${body_json.tempPassword}`);
 
     newSocket.onopen = () => {
       console.log("WebSocket Connected");
@@ -74,7 +72,7 @@ export const WebSocketProvider = ({ children }: { children: React.ReactNode }) =
       console.log("WebSocket Disconnected");
       setSocket(undefined);
       if (ev.code !== 4004) {
-        setTimeout(() => connect(), 500);
+        // setTimeout(() => connect(), 500);
       }
     };
   };
@@ -103,9 +101,6 @@ export const WebSocketProvider = ({ children }: { children: React.ReactNode }) =
           console.log("No callbacks for action", message.action);
         }
       };
-    } else if (!socket) {
-      console.log("refreshing socket");
-      connect();
     }
   }, [socket]);
 
