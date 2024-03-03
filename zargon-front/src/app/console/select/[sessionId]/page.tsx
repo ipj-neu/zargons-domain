@@ -42,18 +42,18 @@ function App({ params }: { params: { sessionId: string } }) {
       <h1 className="text-2xl font-bold mb-4 text-center mt-4">Please select a hero</h1>
       <div className="flex flex-col items-center justify-center flex-grow">
         <div className="flex justify-center space-x-2 mb-4">
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg w-32" onClick={() => selectHero("Barbarian")}>
+          <button type="submit" className="bg-sand text-black p-2 rounded-lg w-32 transition hover:bg-yellow-600" onClick={() => selectHero("Barbarian")}>
             Barbarian
           </button>
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg w-32" onClick={() => selectHero("Dwarf")}>
+          <button type="submit" className="bg-sand text-black p-2 rounded-lg w-32 transition hover:bg-yellow-600" onClick={() => selectHero("Dwarf")}>
             Dwarf
           </button>
         </div>
         <div className="flex justify-center space-x-2">
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg w-32" onClick={() => selectHero("Elf")}>
+          <button type="submit" className="bg-sand text-black p-2 rounded-lg w-32 transition hover:bg-yellow-600" onClick={() => selectHero("Elf")}>
             Elf
           </button>
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg w-32" onClick={() => selectHero("Wizard")}>
+          <button type="submit" className="bg-sand text-black p-2 rounded-lg w-32 transition hover:bg-yellow-600" onClick={() => selectHero("Wizard")}>
             Wizard
           </button>
         </div>

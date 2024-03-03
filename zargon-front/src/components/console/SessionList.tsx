@@ -70,10 +70,11 @@ export default function SessionList() {
       </div>
       {userSessions ? (
         <div className="flex flex-col flex-1">
-          {userSessions.map((session) => (
+          {userSessions.map((session, index) => (
             <div onClick={handleSelectedSession(session)}>
               <SessionItem
                 key={session.sessionId}
+                index={index}
                 session={session}
                 selected={selectedSession ? selectedSession.sessionId == session.sessionId : false}
                 onDelete={handleDeleteSession(session.sessionId)}

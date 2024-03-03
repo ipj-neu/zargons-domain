@@ -33,9 +33,9 @@ export default function Layout({ children, manage }: { children: React.ReactNode
         {({ signOut }) => (
           <>
             <WebSocketProvider>
-              <nav className="flex flex-1 justify-between p-2">
-                <p>Zargon's Domain</p>
-                <button onClick={signOut} className="p-2 rounded bg-sand">
+              <nav className="flex flex-1 justify-between p-2 bg-main-brown text-black font-bold">
+                <p className="self-center">Zargon's Domain</p>
+                <button onClick={signOut} className="p-2 rounded bg-main-gray text-black">
                   <IoIosLogOut size={25} />
                 </button>
               </nav>

@@ -4,6 +4,7 @@ import { Session } from "@/types";
 import { put } from "aws-amplify/api";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FaAngleRight } from "react-icons/fa";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
@@ -42,8 +43,8 @@ function App() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button type="submit" className="ml-2 bg-blue-500 text-white p-2 rounded-lg" onClick={fetchUserSessions}>
-            Join
+          <button type="submit" className="ml-2 bg-sand text-black p-2 rounded-lg transition duration-1000 hover:bg-yellow-600 hover:rotate-[360deg]" onClick={fetchUserSessions}>
+            <FaAngleRight />
           </button>
         </div>
       </form>
