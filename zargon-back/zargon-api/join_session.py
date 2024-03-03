@@ -37,7 +37,7 @@ def handler(event, context):
     player_socket_url = response["Items"][0]["connectionId"]
 
     response = session_table.update_item(
-        Key=session["sessionId"],
+        Key={"sessionId": session["sessionId"]},
         UpdateExpression=f"SET playerSocketUrl = list_append(if_not_exists(playerSocketUrl, :empty_list), :new_value)",
         ExpressionAttributeValues={
             ":new_value": [player_socket_url],

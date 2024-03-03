@@ -27,7 +27,7 @@ package:
 functions:
   connect:
     name: connect-${opt:stage, self:provider.stage}
-    handler: handler.connect
+    handler: handler.on_connect
     package:
       include:
         - handler.py
@@ -40,7 +40,7 @@ functions:
               - "route.request.querystring.tempPassword"
 
   disconnect:
-    handler: handler.disconnect
+    handler: handler.on_disconnect
     package:
       include:
         - handler.py
@@ -50,7 +50,7 @@ functions:
 
   socket-authorizor:
     name: socket-authorizor-${opt:stage, self:provider.stage}
-    handler: authorizor.handler
+    handler: authorizer.handler
     package:
       include:
         - authorizer.py

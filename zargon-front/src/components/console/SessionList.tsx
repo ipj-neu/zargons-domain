@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useCallback, useState } from "react";
-import { get } from "@aws-amplify/api";
+import { get, post } from "@aws-amplify/api";
 import { Session } from "@/types";
 import SessionItem from "./SessionItem";
 import { useRouter } from "next/navigation";
@@ -27,11 +27,15 @@ export default function SessionList() {
     }
   }, []);
 
-  const handleStartSession = useCallback(() => {
+  const handleStartSession = useCallback(async () => {
     console.log("Starting session", selectedSession);
     if (selectedSession == undefined) return;
-    router.push(`/console/session/${selectedSession.sessionId}`);
-  }, []);
+    const { body } = await post({
+      apiName: "SessionAPI",
+      path: `/session/${selectedSession.sessionId}`,
+    }).response;
+    router.push(`/console/gm/${selectedSession.sessionId}`);
+  }, [selectedSession, router]);
 
   const handleSelectedSession = useCallback((session: Session) => {
     return () => {
@@ -56,7 +60,7 @@ export default function SessionList() {
         <button
           onClick={handleStartSession}
           className={`rounded px-3 py-1 bg-sand ${selectedSession == undefined ? "opacity-50" : "hover:opacity-90"}`}
-          disabled={true}
+          disabled={selectedSession == undefined}
         >
           Start
         </button>
@@ -66,10 +70,11 @@ export default function SessionList() {
       </div>
       {userSessions ? (
         <div className="flex flex-col flex-1">
-          {userSessions.map((session) => (
+          {userSessions.map((session, index) => (
             <div onClick={handleSelectedSession(session)}>
               <SessionItem
                 key={session.sessionId}
+                index={index}
                 session={session}
                 selected={selectedSession ? selectedSession.sessionId == session.sessionId : false}
                 onDelete={handleDeleteSession(session.sessionId)}
