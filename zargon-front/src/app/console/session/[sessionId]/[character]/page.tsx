@@ -12,16 +12,16 @@ export default function PlayerCharacter({ params }: { params: { sessionId: strin
   }, [params.sessionId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center h-52">Loading...</div>;
   }
 
   if (!session) {
-    return <div>Session not found</div>;
+    return <div className="flex justify-center items-center h-52">Session not found</div>;
   }
 
   return (
     <div>
-      <HeroDisplay hero={session.heroes[params.character]} heroClass={params.character} />
+      <HeroDisplay hero={session.heroes[params.character]} heroClass={params.character} sessionId={params.sessionId} />
     </div>
   );
 }
