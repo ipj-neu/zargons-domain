@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div>
-      <nav className="flex flex-1 justify-between p-2">
+      <nav className="absolute flex flex-1 justify-between p-2">
         <p>Zargon's Domain</p>
         <Link href="/console" className="p-2 rounded bg-sand">
           Login
