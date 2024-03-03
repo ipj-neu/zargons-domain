@@ -39,7 +39,7 @@ export default function page({params}: {params: { sessionId: string }}) {
 
     return (
         <div className="bg-main-white flex flex-col h-screen"> 
-            <p className="absolute text-main-white text-2xl m-4 left-1/2 transform -translate-x-1/2">Join Code: {session?.joinCode || "???"}</p>
+            <p className="absolute text-black text-2xl m-4 left-1/2 transform -translate-x-1/2">Join Code: {session?.joinCode || "???"}</p>
             <div className="flex flex-wrap flex-grow bg-main-white">
                 <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
                     <HeroDisplay hero={playerOne} imgUrl={playerOneImg} />

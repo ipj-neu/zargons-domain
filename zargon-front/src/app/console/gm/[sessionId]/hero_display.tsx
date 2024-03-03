@@ -18,13 +18,12 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     return (
-        <div className="relative rounded-lg m-[1%] flex w-fit bg-black bg-cover bg-right bg-no-repeat overflow-hidden" onClick={toggleModal}>
-            
+        <div className="relative rounded-lg m-[1%] flex w-fit bg-main-gray bg-cover bg-right bg-no-repeat overflow-hidden" onClick={toggleModal}>
             {/* Hover effect overlay */}
-            <div className="absolute inset-0 z-[80] bg-black transition opacity-0 hover:opacity-50"></div>
+            <div className="absolute inset-0 z-[80] bg-black transition opacity-0 hover:opacity-20"></div>
             
             {/* Gradient overlay */}
-            <div className="absolute inset-0 z-[70] opacity-75 bg-gradient-to-r from-slate-900"></div>
+            {/* <div className="absolute inset-0 z-[70] opacity-75 bg-gradient-to-r from-slate-700 from-15%"></div> */}
 
             {/* Hero Image */}
             <div className="w-80 z-[60] bg-cover bg-center" style={{ backgroundImage: `url(${imgUrl})`}}></div>
@@ -83,11 +82,11 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
                                     </div>
                                 </div>
 
-                                {/* Artifacts List */}
+                                {/* Items List */}
                                 <div className="h-fit max-w-96 rounded-lg overflow-hidden">
                                     {/* Title Bar */}
                                     <div className="flex justify-center p-1 bg-stone-800 text-main-white">
-                                        <p className="text-2xl/loose">Artifacts</p>
+                                        <p className="text-2xl/loose">Items</p>
                                     </div>
 
                                     {/* List Items */}
