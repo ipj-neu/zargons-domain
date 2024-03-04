@@ -34,7 +34,8 @@ export default function HeroDisplay({ hero, heroClass, sessionId }: { hero: Hero
         <div>
           <label>Gold: </label>
           <CharacterInputs type="input" name="Gold Coins" value={currentHero["Gold Coins"]} onChange={currentHeroUpdate} className="w-16" />
-          <label className="ml-5">Movement: {currentHero.Movement}</label>
+          <label className="ml-5">Movement: </label>
+          <CharacterInputs type="input" name="Movement" value={currentHero.Movement} onChange={currentHeroUpdate} className="w-16" />
         </div>
         <h1 className="font-bold text-2xl">{heroClass}</h1>
         <button className="px-4 py-1 bg-sand rounded hover:opacity-60" onClick={handleSaveHero}>
@@ -65,7 +66,7 @@ export default function HeroDisplay({ hero, heroClass, sessionId }: { hero: Hero
         </div>
       </div>
 
-      <div className="fixed flex justify-between inset-x-0 bottom-0 p-6 border-t-2 border-black">
+      <div className="fixed flex z-10 bg-white justify-between inset-x-0 bottom-0 p-6 border-t-2 border-black">
         <div>
           <label>Attack </label>
           <CharacterInputs type="input" name="Atk" value={currentHero.Atk} onChange={currentHeroUpdate} className="w-32" />

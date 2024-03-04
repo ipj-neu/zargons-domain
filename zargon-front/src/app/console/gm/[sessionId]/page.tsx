@@ -1,59 +1,72 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from 'react';
-import HeroDisplay from './hero_display';
-import { get } from "aws-amplify/api";
-import { Hero, Session } from '@/types';
-import { json } from 'stream/consumers';
-import { useSession } from '@/hooks/Sessions';
+import React, { useCallback, useEffect, useState } from "react";
+import HeroDisplay from "./hero_display";
+import { put } from "aws-amplify/api";
+import { Hero, Session } from "@/types";
+import { useSession } from "@/hooks/Sessions";
+import { useRouter } from "next/navigation";
 
-export default function page({params}: {params: { sessionId: string }}) {
-    const [playerOne, setPlayerOne] = useState<Hero>();
-    const [playerTwo, setPlayerTwo] = useState<Hero>();
-    const [playerThree, setPlayerThree] = useState<Hero>();
-    const [playerFour, setPlayerFour] = useState<Hero>();
+export default function page({ params }: { params: { sessionId: string } }) {
+  const [playerOne, setPlayerOne] = useState<Hero>();
+  const [playerTwo, setPlayerTwo] = useState<Hero>();
+  const [playerThree, setPlayerThree] = useState<Hero>();
+  const [playerFour, setPlayerFour] = useState<Hero>();
 
-    const playerOneImg = "/images/barbarian.png"
-    const playerTwoImg = "/images/dwarf.png"
-    const playerThreeImg = "/images/elf.png"
-    const playerFourImg = "/images/wizard.png"
+  const playerOneImg = "/images/barbarian.png";
+  const playerTwoImg = "/images/dwarf.png";
+  const playerThreeImg = "/images/elf.png";
+  const playerFourImg = "/images/wizard.png";
 
-    const { session, fetchSession } = useSession();
+  const { session, fetchSession } = useSession();
+  const router = useRouter();
 
-    useEffect(() => {
-        fetchSession(params.sessionId);
-    }, [])
+  useEffect(() => {
+    fetchSession(params.sessionId);
+  }, [params.sessionId]);
 
-    useEffect(() => {
-        if (session && session.heroes) {
-            setPlayerOne(session.heroes["Barbarian"]);
-    
-            setPlayerTwo(session.heroes["Dwarf"]);
-    
-            setPlayerThree(session.heroes["Elf"]);
-    
-            setPlayerFour(session.heroes["Wizard"]);
-        }
-    }, [session])
+  const handleCloseSession = useCallback(() => {
+    const response = put({
+      apiName: "SessionAPI",
+      path: `/session/${params.sessionId}/close`,
+    });
+    router.push("/console");
+  }, [params.sessionId]);
 
+  useEffect(() => {
+    if (session && session.heroes) {
+      setPlayerOne(session.heroes["Barbarian"]);
 
-    return (
-        <div className="bg-main-white flex flex-col h-screen"> 
-            <p className="absolute text-black text-2xl m-4 left-1/2 transform -translate-x-1/2">Join Code: {session?.joinCode || "???"}</p>
-            <div className="flex flex-wrap flex-grow bg-main-white">
-                <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
-                    <HeroDisplay hero={playerOne} imgUrl={playerOneImg} />
-                </div>
-                <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
-                    <HeroDisplay hero={playerTwo} imgUrl={playerTwoImg} />
-                </div>
-                <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
-                    <HeroDisplay hero={playerThree} imgUrl={playerThreeImg} />
-                </div>
-                <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
-                    <HeroDisplay hero={playerFour} imgUrl={playerFourImg} />
-                </div>
-            </div>
+      setPlayerTwo(session.heroes["Dwarf"]);
+
+      setPlayerThree(session.heroes["Elf"]);
+
+      setPlayerFour(session.heroes["Wizard"]);
+    }
+  }, [session]);
+
+  return (
+    <div className="bg-main-white flex flex-col h-screen">
+      <div className="flex justify-between px-5 py-2">
+        <p className="text-black text-2xl">Join Code: {session?.joinCode || "???"}</p>
+        <button onClick={handleCloseSession} className="px-3 py-2 bg-sand rounded-xl">
+          Close
+        </button>
+      </div>
+      <div className="flex flex-wrap flex-grow bg-main-white">
+        <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
+          <HeroDisplay hero={playerOne} imgUrl={playerOneImg} />
         </div>
-    );
+        <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
+          <HeroDisplay hero={playerTwo} imgUrl={playerTwoImg} />
+        </div>
+        <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
+          <HeroDisplay hero={playerThree} imgUrl={playerThreeImg} />
+        </div>
+        <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
+          <HeroDisplay hero={playerFour} imgUrl={playerFourImg} />
+        </div>
+      </div>
+    </div>
+  );
 }
