@@ -1,17 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
+import logoPic from '../../public/images/logo.png'
 
 export default function Home() {
   return (
-    <div>
-      <nav className="absolute flex flex-1 justify-between p-2">
-        <p>Zargon's Domain</p>
+    <div className="flex flex-col min-h-screen">
+      <div className="flex justify-center pt-20">
+        <Image src={logoPic} width={600} alt="Pic of Logo" />
+      </div>
+      <div className="flex-grow"></div> 
+      <nav className="flex justify-center items-center p-2">
         <Link href="/console" className="p-2 rounded bg-sand">
           Login
         </Link>
       </nav>
-      <div className="flex justify-center items-center h-52">
-        <h1 className="text-3xl font-bold">Home Screen</h1>
-      </div>
+      <div className="flex-grow"></div> 
     </div>
   );
 }
