@@ -15,6 +15,7 @@ provider:
         - Effect: Allow
           Action:
             - dynamodb:*
+            - execute-api:*
           Resource: "*"
 
 package:

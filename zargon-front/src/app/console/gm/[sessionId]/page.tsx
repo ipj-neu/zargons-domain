@@ -6,6 +6,7 @@ import { put } from "aws-amplify/api";
 import { Hero, Session } from "@/types";
 import { useSession } from "@/hooks/Sessions";
 import { useRouter } from "next/navigation";
+import { useWebSocket } from "@/contexts/WebSocket";
 
 export default function page({ params }: { params: { sessionId: string } }) {
   const [playerOne, setPlayerOne] = useState<Hero>();
@@ -24,6 +25,30 @@ export default function page({ params }: { params: { sessionId: string } }) {
   useEffect(() => {
     fetchSession(params.sessionId);
   }, [params.sessionId]);
+
+  const handleUpdateHeroNotification = useCallback(({ action, sessionId, heroType, hero }: { action: string; [key: string]: any }) => {
+    console.log("Hero Update Notification");
+    if (sessionId === params.sessionId) {
+      switch (heroType) {
+        case "Barbarian":
+          setPlayerOne(hero);
+          break;
+        case "Dwarf":
+          setPlayerTwo(hero);
+          break;
+        case "Elf":
+          setPlayerThree(hero);
+          break;
+        case "Wizard":
+          setPlayerFour(hero);
+          break;
+      }
+    } else {
+      console.log("Session Id does not match");
+    }
+  }, []);
+
+  useWebSocket("updateHero", handleUpdateHeroNotification);
 
   const handleCloseSession = useCallback(() => {
     const response = put({
