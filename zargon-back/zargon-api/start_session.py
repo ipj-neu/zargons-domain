@@ -33,14 +33,6 @@ def handler(event, context):
         # Add our code to the session
         session["joinCode"] = join_code
 
-        # Add user socket url to the session
-        socket_res = connection_table.query(IndexName="UserIdIndex", KeyConditionExpression=Key("userId").eq(userId))
-        if "Items" not in socket_res and len(socket_res["Items"]) == 0:
-            response(404, "Connection not found")  # If it doesn't exist, we return a 404
-
-        gm_socket_url = socket_res["Items"][0]["connectionId"]
-        session["gmSocketUrl"] = gm_socket_url
-
         # Update the session in dynamo
         session_table.put_item(Item=session)
 

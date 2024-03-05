@@ -7,6 +7,7 @@ import { Hero, Session } from "@/types";
 import { useSession } from "@/hooks/Sessions";
 import { useRouter } from "next/navigation";
 import { useWebSocket } from "@/contexts/WebSocket";
+import JoinToast from "@/components/gm/JoinToast";
 
 export default function page({ params }: { params: { sessionId: string } }) {
   const [playerOne, setPlayerOne] = useState<Hero>();
@@ -50,8 +51,8 @@ export default function page({ params }: { params: { sessionId: string } }) {
 
   useWebSocket("updateHero", handleUpdateHeroNotification);
 
-  const handleCloseSession = useCallback(() => {
-    const response = put({
+  const handleCloseSession = useCallback(async () => {
+    const response = await put({
       apiName: "SessionAPI",
       path: `/session/${params.sessionId}/close`,
     });
@@ -72,6 +73,7 @@ export default function page({ params }: { params: { sessionId: string } }) {
 
   return (
     <div className="bg-main-white flex flex-col h-screen">
+      <JoinToast />
       <div className="flex justify-between px-5 py-2">
         <p className="text-black text-2xl">Join Code: {session?.joinCode || "???"}</p>
         <button onClick={handleCloseSession} className="px-3 py-2 bg-sand rounded-xl">

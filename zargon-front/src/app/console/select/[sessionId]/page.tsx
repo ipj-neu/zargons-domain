@@ -20,8 +20,6 @@ function App({ params }: { params: { sessionId: string } }) {
 
         setErrorMessage("");
         router.push(`/console/session/${params.sessionId}/${heroName}`);
-
-        const body = await res.body.json();
       } catch (error) {
         if (error instanceof ApiError) {
           if (error.response) {

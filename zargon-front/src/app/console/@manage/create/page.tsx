@@ -41,7 +41,7 @@ export default function CreateModal() {
         disabled={loading}
       />
       <button onClick={handleSubmit} className="bg-sand text-white px-4 py-2 rounded-lg ml-2" disabled={loading || inputValue === ""}>
-        Submit
+        Create
       </button>
     </SlotModal>
   );

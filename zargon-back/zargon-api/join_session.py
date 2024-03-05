@@ -18,33 +18,23 @@ def handler(event, context):
 
     response = session_table.scan(FilterExpression=Attr("joinCode").eq(join_code))
 
-    if response["Count"] == 0:
+    if len(response.get("Items", [])) == 0:
         return {"statusCode": 404, "body": json.dumps({"message": "Session not found"})}
 
     session = response["Items"][0]
 
-    if len(session["playersSocketUrl"]) >= 4:
-        return {"statusCode": 400, "body": json.dumps({"message": "Session is full"})}
+    if userId not in session["players"]:
+        if len(session["players"]) >= 4:
+            return {"statusCode": 400, "body": json.dumps({"message": "Session is full"})}
 
-    # get the playerSocketUrl from the connection table
-    connection_table_name = "zargons-domain-dev-user-connections"
-    connection_table = boto3.resource("dynamodb").Table(connection_table_name)
-    # get the connection for the user from the UserIdIndex
-    response = connection_table.query(IndexName="UserIdIndex", KeyConditionExpression=Key("userId").eq(userId))
-    if response["Count"] == 0:
-        return {"statusCode": 404, "body": json.dumps({"message": "Connection not found"})}
-
-    player_socket_url = response["Items"][0]["connectionId"]
-
-    response = session_table.update_item(
-        Key={"sessionId": session["sessionId"]},
-        UpdateExpression=f"SET playerSocketUrl = list_append(if_not_exists(playerSocketUrl, :empty_list), :new_value)",
-        ExpressionAttributeValues={
-            ":new_value": [player_socket_url],
-            ":empty_list": [],
-        },
-        ReturnValues="UPDATED_NEW",
-    )
+        session_table.update_item(
+            Key={"sessionId": session["sessionId"]},
+            UpdateExpression=f"SET players = list_append(if_not_exists(players, :empty_list), :new_value)",
+            ExpressionAttributeValues={
+                ":new_value": [userId],
+                ":empty_list": [],
+            },
+        )
 
     return_body = {
         "sessionId": session["sessionId"],

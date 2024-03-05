@@ -9,12 +9,12 @@ type WebSocketMessage = {
 
 type ActionCallback = (message: WebSocketMessage) => void;
 
-type WebSocketContext = {
+type WebSocketContextType = {
   subscribeToAction: (action: string, callback: ActionCallback) => () => void;
 };
 
 // set up context
-const WebSocketContext = createContext<WebSocketContext>({
+const WebSocketContext = createContext<WebSocketContextType>({
   subscribeToAction: () => () => {},
 });
 
@@ -22,6 +22,7 @@ const WebSocketContext = createContext<WebSocketContext>({
 export const WebSocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [socket, setSocket] = useState<WebSocket | undefined>(undefined);
   const actionCallbacksRef = useRef<{ [key: string]: ActionCallback[] }>({});
+  const retryCount = useRef(0);
 
   const subscribeToAction = useCallback((action: string, callback: ActionCallback) => {
     // set up subscription to action
@@ -71,8 +72,20 @@ export const WebSocketProvider = ({ children }: { children: React.ReactNode }) =
     newSocket.onclose = (ev) => {
       console.log("WebSocket Disconnected");
       setSocket(undefined);
+      console.log("code", ev.code);
       if (ev.code !== 4004) {
-        // setTimeout(() => connect(), 500);
+        if (retryCount.current >= 5) {
+          console.log("Max retries reached");
+          return;
+        }
+
+        const retryTimeout = 500 * Math.pow(2, retryCount.current);
+        retryCount.current += 1;
+        console.log("Retrying in", retryTimeout / 1000, "seconds");
+
+        setTimeout(() => {
+          connect();
+        }, retryTimeout);
       }
     };
   };

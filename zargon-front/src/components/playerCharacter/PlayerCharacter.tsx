@@ -1,12 +1,15 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useReducer } from "react";
 import { put } from "@aws-amplify/api";
 import { Hero } from "@/types";
 import CharacterInputs from "./CharacterInputs";
 import { IoIosSave } from "react-icons/io";
+import { useRouter } from "next/navigation";
+import { useWebSocket } from "@/contexts/WebSocket";
 
 export default function HeroDisplay({ hero, heroClass, sessionId }: { hero: Hero; heroClass: string; sessionId: string }) {
   const [currentHero, setCurrentHero] = useState<Hero>(hero);
   const [updating, setUpdating] = useState(false);
+  const router = useRouter();
 
   const currentHeroUpdate = useCallback((e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -27,6 +30,15 @@ export default function HeroDisplay({ hero, heroClass, sessionId }: { hero: Hero
     setUpdating(false);
   }, [currentHero]);
 
+  const handleSessionClose = useCallback(({ action, sessionId: closingSessionid }: { action: string; [key: string]: any }) => {
+    console.log("Session Close Notification");
+    if (sessionId === closingSessionid) {
+      router.replace("/console");
+    }
+  }, []);
+
+  useWebSocket("closeSession", handleSessionClose);
+
   return (
     <div className="">
       {updating && <div className="fixed inset-0 bg-gray-500 opacity-50 z-50"></div>}
@@ -36,15 +48,13 @@ export default function HeroDisplay({ hero, heroClass, sessionId }: { hero: Hero
           <CharacterInputs type="input" name="Name" value={currentHero.Name} onChange={currentHeroUpdate} className="mr-5" />
           <label>Gold: </label>
           <CharacterInputs type="input" name="Gold Coins" value={currentHero["Gold Coins"]} onChange={currentHeroUpdate} className="w-16" />
-          
         </div>
         <h1 className="absolute font-bold text-2xl left-1/2 transform -translate-x-1/2">{heroClass}</h1>
         <button className="px-4 py-1 bg-sand rounded hover:opacity-60" onClick={handleSaveHero}>
           <IoIosSave size={25} />
         </button>
       </div>
-      <div className="flex flex-col justify-center items-center">
-      </div>
+      <div className="flex flex-col justify-center items-center"></div>
 
       <div className="grid grid-cols-2 grid-rows-2 gap-10 p-10">
         <div className="flex flex-col bg-red-800 rounded-lg">
