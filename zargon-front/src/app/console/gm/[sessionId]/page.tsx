@@ -80,17 +80,17 @@ export default function page({ params }: { params: { sessionId: string } }) {
           Close
         </button>
       </div>
-      <div className="flex flex-wrap flex-grow bg-main-white">
-        <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
+      <div className="grid grid-cols-1 bg-main-white lg:grid-cols-2">
+        <div className="p-4 flex justify-center items-center">
           <HeroDisplay hero={playerOne} imgUrl={playerOneImg} />
         </div>
-        <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
+        <div className="p-4 flex justify-center items-center">
           <HeroDisplay hero={playerTwo} imgUrl={playerTwoImg} />
         </div>
-        <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
+        <div className="p-4 flex justify-center items-center">
           <HeroDisplay hero={playerThree} imgUrl={playerThreeImg} />
         </div>
-        <div className="w-1/2 h-1/2 p-4 flex justify-center items-center">
+        <div className="p-4 flex justify-center items-center">
           <HeroDisplay hero={playerFour} imgUrl={playerFourImg} />
         </div>
       </div>

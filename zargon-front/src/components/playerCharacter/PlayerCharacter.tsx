@@ -49,14 +49,14 @@ export default function HeroDisplay({ hero, heroClass, sessionId }: { hero: Hero
           <label>Gold: </label>
           <CharacterInputs type="input" name="Gold Coins" value={currentHero["Gold Coins"]} onChange={currentHeroUpdate} className="w-16" />
         </div>
-        <h1 className="absolute font-bold text-2xl left-1/2 transform -translate-x-1/2">{heroClass}</h1>
+        <h1 className="absolute font-bold text-2xl left-1/2  transform -translate-x-1/2 top-36 lg:top-15">{heroClass}</h1>
         <button className="px-4 py-1 bg-sand rounded hover:opacity-60" onClick={handleSaveHero}>
           <IoIosSave size={25} />
         </button>
       </div>
       <div className="flex flex-col justify-center items-center"></div>
 
-      <div className="grid grid-cols-2 grid-rows-2 gap-10 p-10">
+      <div className="grid grid-cols-1 grid-rows-1 gap-10 p-10 lg:grid-cols-2">
         <div className="flex flex-col bg-red-800 rounded-lg">
           <label className="flex justify-center text-main-white text-2xl p-4">Weapons</label>
           <CharacterInputs type="textarea" name="Weapons" value={currentHero.Weapons} onChange={currentHeroUpdate} rows={8} />

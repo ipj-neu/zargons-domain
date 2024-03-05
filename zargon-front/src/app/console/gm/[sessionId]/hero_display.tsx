@@ -47,7 +47,7 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
       {/* Hero Modal With More Info */}
       <div>
         <HeroModal isOpen={isModalOpen} onClose={toggleModal}>
-          <div className={`grid grid-rows-1 ${currentHero?.Spells ? "grid-cols-3" : "grid-cols-2"} bg-main-brown rounded-lg overflow-hidden`}>
+          <div className={`grid grid-rows-1 ${currentHero?.Spells ? "grid-cols-3" : "grid-cols-2"} bg-main-brown rounded-lg overflow-y-scroll`}>
             <div className="flex flex-col col-span-2">
               {/* Title Bar */}
               <div className="flex flex-row justify-evenly align-top p-2 bg-dark-brown text-main-white text-2xl/loose">
@@ -55,7 +55,7 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
                 <p>Gold: {currentHero?.["Gold Coins"] || "???"}</p>
               </div>
 
-              <div className="grid grid-rows-2 grid-cols-2 items-center flex-grow justify-items-center gap-4 p-4">
+              <div className="grid grid-rows-2 grid-cols-1 items-center flex-grow justify-items-center gap-4 p-4">
                 {/* Weapons List */}
                 <div className="h-fit max-w-96 rounded-lg overflow-hidden">
                   {/* Title Bar */}
