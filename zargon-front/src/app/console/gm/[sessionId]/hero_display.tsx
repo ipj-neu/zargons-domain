@@ -55,7 +55,7 @@ const HeroDisplay: React.FC<HeroDisplayProps> = ({ hero, imgUrl }) => {
                 <p>Gold: {currentHero?.["Gold Coins"] || "???"}</p>
               </div>
 
-              <div className="grid grid-rows-2 grid-cols-1 items-center flex-grow justify-items-center gap-4 p-4">
+              <div className="grid grid-rows-2 grid-cols-1 items-center flex-grow justify-items-center gap-4 p-4 lg:grid-cols-2">
                 {/* Weapons List */}
                 <div className="h-fit max-w-96 rounded-lg overflow-hidden">
                   {/* Title Bar */}
